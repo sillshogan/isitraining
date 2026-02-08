@@ -9,7 +9,74 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  <style>
+  <style>/* ---- RAVE DUCKS ---- */
+#duckRave{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index: 9; /* above stickers, below main card (stage is 10) */
+  overflow:hidden;
+}
+
+.duck{
+  position:absolute;
+  font-size: clamp(28px, 4vw, 56px);
+  filter: drop-shadow(0 18px 28px rgba(0,0,0,.55));
+  will-change: transform;
+  opacity:.95;
+}
+
+/* little glow aura */
+.duck::after{
+  content:"";
+  position:absolute;
+  inset:-18px;
+  border-radius:999px;
+  background: radial-gradient(circle, rgba(102,227,255,.22), transparent 60%),
+              radial-gradient(circle, rgba(255,42,109,.16), transparent 62%),
+              radial-gradient(circle, rgba(183,255,90,.12), transparent 64%);
+  filter: blur(8px);
+  z-index:-1;
+  opacity:.75;
+}
+
+/* The hop (up-down) + wiggle */
+@keyframes hop {
+  0%   { transform: translate3d(var(--x), var(--y), 0) rotate(var(--r)) scale(var(--s)); }
+  25%  { transform: translate3d(calc(var(--x) + var(--dx)*.25), calc(var(--y) - 18px), 0) rotate(calc(var(--r) + 6deg)) scale(var(--s)); }
+  50%  { transform: translate3d(calc(var(--x) + var(--dx)*.5),  var(--y), 0) rotate(calc(var(--r) - 6deg)) scale(var(--s)); }
+  75%  { transform: translate3d(calc(var(--x) + var(--dx)*.75), calc(var(--y) - 14px), 0) rotate(calc(var(--r) + 4deg)) scale(var(--s)); }
+  100% { transform: translate3d(calc(var(--x) + var(--dx)), var(--y), 0) rotate(var(--r)) scale(var(--s)); }
+}
+
+/* Headbanging */
+@keyframes headbang {
+  0%   { transform: translate3d(var(--x), var(--y), 0) rotate(calc(var(--r) - 8deg)) scale(var(--s)); }
+  20%  { transform: translate3d(calc(var(--x) + 6px), calc(var(--y) - 8px), 0) rotate(calc(var(--r) + 14deg)) scale(calc(var(--s) * 1.02)); }
+  50%  { transform: translate3d(calc(var(--x) - 4px), calc(var(--y) - 2px), 0) rotate(calc(var(--r) - 12deg)) scale(var(--s)); }
+  80%  { transform: translate3d(calc(var(--x) + 4px), calc(var(--y) - 10px), 0) rotate(calc(var(--r) + 16deg)) scale(calc(var(--s) * 1.03)); }
+  100% { transform: translate3d(var(--x), var(--y), 0) rotate(calc(var(--r) - 8deg)) scale(var(--s)); }
+}
+
+/* Rave lasers that occasionally fire from ducks */
+.laser{
+  position:absolute;
+  height:2px;
+  width:160px;
+  transform-origin:left center;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(102,227,255,.85), rgba(255,42,109,.75), rgba(255,255,255,0));
+  filter: blur(.2px);
+  opacity:.0;
+  animation: pew 1.1s ease-out 1;
+  pointer-events:none;
+}
+
+@keyframes pew{
+  0%{opacity:0; transform: translate3d(0,0,0) rotate(var(--a)) scaleX(.2);}
+  12%{opacity:.95; transform: translate3d(0,0,0) rotate(var(--a)) scaleX(1);}
+  100%{opacity:0; transform: translate3d(40px,-10px,0) rotate(var(--a)) scaleX(1.2);}
+}
+
     :root{
       --bg0:#050810;
       --bg1:#071024;
@@ -953,6 +1020,107 @@
         setMixForWeather();
       }
     }, { once: true });
+// -------------------------
+// RAVE DUCKS
+// -------------------------
+const duckRave = document.getElementById("duckRave");
+let ducks = [];
+let duckPartyHard = false; // toggled by "spotify interacting" + Vibes
+
+function spawnDuck(){
+  if(!duckRave) return;
+
+  const d = document.createElement("div");
+  d.className = "duck";
+  d.textContent = Math.random() < 0.85 ? "🦆" : "🐤";
+
+  const s = 0.9 + Math.random()*0.8;
+  const x = (Math.random()*92).toFixed(2) + "vw";
+  const y = (Math.random()*90).toFixed(2) + "vh";
+  const r = (-12 + Math.random()*24).toFixed(1) + "deg";
+  const dx = ((Math.random() < 0.5 ? -1 : 1) * (60 + Math.random()*160)).toFixed(1) + "px";
+
+  d.style.setProperty("--s", s);
+  d.style.setProperty("--x", x);
+  d.style.setProperty("--y", y);
+  d.style.setProperty("--r", r);
+  d.style.setProperty("--dx", dx);
+
+  // base speed
+  const dur = (2.8 + Math.random()*3.2);
+  d.style.animation = `hop ${dur}s ease-in-out infinite`;
+
+  duckRave.appendChild(d);
+  ducks.push({ el: d, baseDur: dur });
+}
+
+function setDuckMode(hard){
+  duckPartyHard = hard;
+  ducks.forEach(obj => {
+    const d = obj.el;
+    const dur = hard ? Math.max(1.2, obj.baseDur * 0.55) : obj.baseDur;
+    d.style.animation = hard
+      ? `headbang ${dur}s ease-in-out infinite`
+      : `hop ${dur}s ease-in-out infinite`;
+  });
+}
+
+function duckLasers(){
+  if(!duckRave || !duckPartyHard) return;
+  if(Math.random() > 0.35) return;
+
+  const chosen = ducks[Math.floor(Math.random()*ducks.length)];
+  if(!chosen) return;
+
+  const laser = document.createElement("div");
+  laser.className = "laser";
+  laser.style.left = chosen.el.style.getPropertyValue("--x");
+  laser.style.top  = chosen.el.style.getPropertyValue("--y");
+  laser.style.setProperty("--a", (-25 + Math.random()*50).toFixed(1) + "deg");
+
+  duckRave.appendChild(laser);
+  setTimeout(() => laser.remove(), 1200);
+}
+
+// periodically pew pew
+setInterval(duckLasers, 700);
+
+// spawn a bunch of ducks
+function initDucks(count = 10){
+  if(!duckRave) return;
+  duckRave.innerHTML = "";
+  ducks = [];
+  for(let i=0;i<count;i++) spawnDuck();
+  setDuckMode(false);
+}
+initDucks(window.innerWidth < 520 ? 7 : 11);
+
+// ducks adapt to resize
+window.addEventListener("resize", () => {
+  initDucks(window.innerWidth < 520 ? 7 : 11);
+});
+
+// If your existing code has maxVibes, tie ducks to it:
+(function hookDucksToVibes(){
+  // If you have maxVibes already defined, this will follow it.
+  // Party hard if max vibes AND raining, or if user is interacting with Spotify.
+  setInterval(() => {
+    const shouldHard = (typeof maxVibes !== "undefined" && maxVibes && typeof rainingNow !== "undefined" && rainingNow) || duckPartyHard;
+    setDuckMode(!!shouldHard);
+  }, 600);
+})();
+
+// Best-effort: if user clicks anywhere near the Spotify embed, ducks go harder for a bit.
+document.addEventListener("click", (e) => {
+  // If you gave your spotify container an id="spotifyBox", this detects clicks around it.
+  const box = document.getElementById("spotifyBox");
+  if(!box) return;
+  if(box.contains(e.target)){
+    duckPartyHard = true;
+    setDuckMode(true);
+    setTimeout(() => { duckPartyHard = false; }, 12000);
+  }
+});
 
     // Resize rain drops
     window.addEventListener("resize", () => buildRainDrops(window.innerWidth < 520 ? 130 : 180));
