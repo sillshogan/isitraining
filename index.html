@@ -3,25 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Is It Raining? — The Overdramatic Oracle</title>
+  <title>Is It Raining? — MAXIMUM VIBES EDITION</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg0:#070a12;
-      --bg1:#0a1020;
+      --bg0:#050810;
+      --bg1:#071024;
       --accent:#66e3ff;
       --accent2:#b7ff5a;
       --danger:#ff2a6d;
       --ok:#00ffb2;
       --glass: rgba(255,255,255,.08);
       --glass2: rgba(255,255,255,.12);
-      --shadow: 0 30px 80px rgba(0,0,0,.55);
-      --blur: blur(14px);
+      --shadow: 0 30px 90px rgba(0,0,0,.65);
+      --blur: blur(16px);
     }
 
     *{box-sizing:border-box}
@@ -38,56 +37,78 @@
         linear-gradient(180deg, var(--bg0), var(--bg1));
     }
 
-    /* Subtle moving fog */
+    /* Glow fog */
     .fog{
       position:absolute; inset:-30%;
       background:
         radial-gradient(closest-side, rgba(255,255,255,.08), transparent 70%),
         radial-gradient(closest-side, rgba(102,227,255,.10), transparent 75%),
         radial-gradient(closest-side, rgba(255,42,109,.08), transparent 70%);
-      filter: blur(50px);
-      animation:fog 18s linear infinite;
+      filter: blur(55px);
+      animation:fog 16s linear infinite;
       opacity:.65;
       pointer-events:none;
       mix-blend-mode:screen;
     }
     @keyframes fog{
       0%{transform:translate(-2%,-2%) rotate(0deg) scale(1.03)}
-      50%{transform:translate(2%,1.5%) rotate(8deg) scale(1.08)}
+      50%{transform:translate(2%,1.5%) rotate(10deg) scale(1.10)}
       100%{transform:translate(-2%,-2%) rotate(0deg) scale(1.03)}
     }
 
-    /* Decorative background images */
+    /* Background image collage */
     .gallery{
       position:absolute; inset:0;
       pointer-events:none;
-      opacity:.85;
+      opacity:.95;
     }
     .floaty{
       position:absolute;
-      width:min(28vw, 420px);
+      width:min(28vw, 440px);
       aspect-ratio: 4/3;
-      border-radius:24px;
+      border-radius:26px;
       background-size:cover;
       background-position:center;
       box-shadow: var(--shadow);
-      filter: saturate(1.1) contrast(1.05);
+      filter: saturate(1.15) contrast(1.08);
       transform: translateZ(0);
       mix-blend-mode: lighten;
       opacity:.35;
-      animation: drift 14s ease-in-out infinite;
+      animation: drift 12s ease-in-out infinite;
     }
     .floaty::after{
       content:"";
       position:absolute; inset:0;
-      border-radius:24px;
-      background: linear-gradient(120deg, rgba(102,227,255,.15), rgba(255,42,109,.08), rgba(183,255,90,.10));
+      border-radius:26px;
+      background: linear-gradient(120deg, rgba(102,227,255,.18), rgba(255,42,109,.08), rgba(183,255,90,.12));
       backdrop-filter: var(--blur);
     }
     @keyframes drift{
-      0%{transform: translate(-8px,-10px) rotate(-2deg) scale(1.02)}
-      50%{transform: translate(12px,10px) rotate(2deg) scale(1.04)}
-      100%{transform: translate(-8px,-10px) rotate(-2deg) scale(1.02)}
+      0%{transform: translate(-10px,-12px) rotate(-2deg) scale(1.02)}
+      50%{transform: translate(14px,12px) rotate(2deg) scale(1.06)}
+      100%{transform: translate(-10px,-12px) rotate(-2deg) scale(1.02)}
+    }
+
+    /* Sticker layer (cartoon vibes) */
+    .stickers{
+      position:absolute; inset:0;
+      pointer-events:none;
+      z-index:4;
+      opacity:.95;
+    }
+    .sticker{
+      position:absolute;
+      font-size: clamp(36px, 4vw, 70px);
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,.55));
+      opacity:.75;
+      transform: translateZ(0);
+      animation: bob 6.8s ease-in-out infinite;
+    }
+    .sticker.small{ font-size: clamp(26px, 3vw, 46px); opacity:.62; }
+    @keyframes bob{
+      0%{transform:translate(0,0) rotate(-3deg)}
+      50%{transform:translate(0,14px) rotate(3deg)}
+      100%{transform:translate(0,0) rotate(-3deg)}
     }
 
     /* Center stage */
@@ -96,32 +117,34 @@
       display:grid;
       place-items:center;
       padding:22px;
+      z-index:10;
     }
 
     .card{
-      width:min(980px, 92vw);
-      border-radius:34px;
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: 0 40px 130px rgba(0,0,0,.6);
-      backdrop-filter: blur(18px);
+      width:min(1000px, 94vw);
+      border-radius:36px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 50px 140px rgba(0,0,0,.68);
+      backdrop-filter: blur(20px);
       overflow:hidden;
       position:relative;
+      isolation:isolate;
     }
 
-    /* neon border shimmer */
+    /* Neon halo border */
     .card::before{
       content:"";
       position:absolute; inset:-2px;
       background: conic-gradient(from 0deg,
-        rgba(102,227,255,.55),
+        rgba(102,227,255,.60),
         rgba(255,42,109,.55),
-        rgba(183,255,90,.50),
-        rgba(102,227,255,.55)
+        rgba(183,255,90,.52),
+        rgba(102,227,255,.60)
       );
       filter: blur(18px);
-      opacity:.35;
-      animation: spin 9s linear infinite;
+      opacity:.38;
+      animation: spin 8s linear infinite;
       z-index:0;
     }
     @keyframes spin{to{transform:rotate(360deg)}}
@@ -148,18 +171,18 @@
       min-width: 0;
     }
     .eyebrow{
-      letter-spacing:.18em;
+      letter-spacing:.20em;
       text-transform:uppercase;
       font-size:12px;
       opacity:.85;
     }
     .headline{
       font-family:"Bebas Neue", sans-serif;
-      font-size:44px;
+      font-size:48px;
       line-height:1;
       margin:0;
       letter-spacing:.02em;
-      text-shadow: 0 14px 60px rgba(102,227,255,.22);
+      text-shadow: 0 14px 70px rgba(102,227,255,.25);
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -174,69 +197,70 @@
 
     .btn{
       appearance:none;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(0,0,0,.28);
       color:#eaf2ff;
       padding:10px 12px;
       border-radius:14px;
-      font-weight:600;
+      font-weight:700;
       cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       backdrop-filter: blur(10px);
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.28); }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.32); }
     .btn:active{ transform: translateY(0px) scale(.99); }
-
-    /* The YES/NO */
-    .answer-wrap{
-      display:grid;
-      place-items:center;
-      padding:18px 10px 8px;
+    .btn.primary{
+      border-color: rgba(102,227,255,.55);
+      box-shadow: 0 0 0 1px rgba(102,227,255,.20) inset, 0 18px 60px rgba(102,227,255,.10);
     }
+
+    /* YES/NO box */
+    .answer-wrap{display:grid; place-items:center; padding:14px 10px 8px;}
     .answer{
       position:relative;
       display:grid;
       place-items:center;
-      width:min(760px, 85vw);
-      height:min(340px, 40vh);
-      border-radius:30px;
-      border:1px solid rgba(255,255,255,.18);
-      background: linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.18));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 40px 120px rgba(0,0,0,.6);
+      width:min(780px, 88vw);
+      height:min(360px, 42vh);
+      border-radius:32px;
+      border:1px solid rgba(255,255,255,.20);
+      background: linear-gradient(180deg, rgba(0,0,0,.32), rgba(0,0,0,.18));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 40px 130px rgba(0,0,0,.68);
       overflow:hidden;
       isolation:isolate;
     }
     .answer::before{
       content:"";
-      position:absolute; inset:-50%;
+      position:absolute; inset:-55%;
       background:
-        radial-gradient(circle at 30% 30%, rgba(102,227,255,.25), transparent 45%),
-        radial-gradient(circle at 70% 50%, rgba(255,42,109,.20), transparent 50%),
-        radial-gradient(circle at 45% 75%, rgba(183,255,90,.15), transparent 48%);
-      filter: blur(40px);
-      opacity:.8;
-      animation: aurora 10s ease-in-out infinite;
+        radial-gradient(circle at 25% 30%, rgba(102,227,255,.28), transparent 45%),
+        radial-gradient(circle at 70% 50%, rgba(255,42,109,.20), transparent 52%),
+        radial-gradient(circle at 45% 78%, rgba(183,255,90,.16), transparent 50%);
+      filter: blur(45px);
+      opacity:.92;
+      animation: aurora 8.5s ease-in-out infinite;
       z-index:0;
     }
     @keyframes aurora{
-      0%{transform:translate(-2%,-3%) scale(1.02)}
-      50%{transform:translate(3%,2%) scale(1.06)}
-      100%{transform:translate(-2%,-3%) scale(1.02)}
+      0%{transform:translate(-2%,-3%) scale(1.03)}
+      50%{transform:translate(4%,3%) scale(1.10)}
+      100%{transform:translate(-2%,-3%) scale(1.03)}
     }
 
     .giant{
       font-family:"Bebas Neue", sans-serif;
-      font-size: clamp(96px, 14vw, 180px);
+      font-size: clamp(100px, 14vw, 190px);
       line-height:1;
-      letter-spacing:.06em;
+      letter-spacing:.08em;
       margin:0;
       text-transform:uppercase;
       z-index:2;
       text-shadow:
         0 0 18px rgba(102,227,255,.35),
-        0 0 64px rgba(102,227,255,.22),
-        0 30px 120px rgba(0,0,0,.65);
+        0 0 75px rgba(102,227,255,.22),
+        0 35px 140px rgba(0,0,0,.72);
     }
+
     .status{
       display:flex;
       gap:10px;
@@ -248,30 +272,61 @@
       text-align:center;
     }
     .pill{
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.07);
       padding:8px 10px;
       border-radius:999px;
       font-size:12px;
-      opacity:.92;
+      opacity:.94;
       display:inline-flex;
       gap:8px;
       align-items:center;
       backdrop-filter: blur(10px);
+      white-space:nowrap;
     }
     .dot{
       width:10px; height:10px; border-radius:50%;
-      background: rgba(255,255,255,.5);
-      box-shadow: 0 0 16px rgba(255,255,255,.35);
+      background: rgba(255,255,255,.55);
+      box-shadow: 0 0 18px rgba(255,255,255,.35);
     }
 
     .phrase{
       margin: 10px auto 0;
-      max-width: 80ch;
+      max-width: 85ch;
       text-align:center;
       font-size: 15px;
-      opacity:.9;
+      opacity:.92;
       line-height:1.45;
+      z-index:2;
+      padding: 0 8px;
+    }
+
+    /* Storm meter */
+    .meter{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin-top:6px;
+      z-index:2;
+      opacity:.95;
+      font-size:12px;
+    }
+    .bar{
+      width:min(280px, 55vw);
+      height:10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(0,255,178,.65), rgba(102,227,255,.65), rgba(255,42,109,.60));
+      filter: saturate(1.2);
+      transition: width .6s ease;
     }
 
     footer{
@@ -280,120 +335,164 @@
       gap:12px;
       flex-wrap:wrap;
       align-items:center;
-      padding-top:6px;
-      opacity:.9;
+      padding-top:4px;
+      opacity:.92;
     }
-    .small{
-      font-size:12px;
-      opacity:.82;
-    }
-    .linkish{
-      color:var(--accent);
-      text-decoration:none;
-      border-bottom:1px dashed rgba(102,227,255,.45);
-    }
+    .small{font-size:12px; opacity:.82;}
 
-    /* Rain overlay (CSS raindrops) */
+    /* Rain overlay */
     .rain{
       position:absolute; inset:0;
       pointer-events:none;
-      z-index:5;
-      opacity:.0;
-      transition: opacity .6s ease;
+      z-index:6;
+      opacity:0;
+      transition: opacity .55s ease;
       mix-blend-mode: screen;
     }
-    .rain.on{opacity:.55;}
+    .rain.on{opacity:.62;}
     .drop{
       position:absolute;
-      top:-20%;
+      top:-25%;
       width: 2px;
-      height: 18vh;
-      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(102,227,255,.55), rgba(255,255,255,0));
-      filter: blur(.2px);
+      height: 20vh;
+      background: linear-gradient(to bottom,
+        rgba(255,255,255,0),
+        rgba(102,227,255,.55),
+        rgba(255,255,255,0)
+      );
+      filter: blur(.25px);
       animation: fall linear infinite;
       opacity:.65;
     }
-    @keyframes fall{
-      to{ transform: translateY(140vh); }
+    @keyframes fall{ to{ transform: translateY(150vh); } }
+
+    /* Extra: puddle shimmer */
+    .puddle{
+      position:absolute; left:50%; bottom:-42px;
+      width:min(520px, 78vw);
+      height:140px;
+      transform:translateX(-50%);
+      border-radius: 999px;
+      background: radial-gradient(circle at 50% 35%, rgba(102,227,255,.25), rgba(255,255,255,0) 60%),
+                  radial-gradient(circle at 30% 70%, rgba(255,42,109,.16), rgba(255,255,255,0) 60%),
+                  radial-gradient(circle at 70% 70%, rgba(183,255,90,.12), rgba(255,255,255,0) 60%);
+      filter: blur(10px);
+      opacity:.0;
+      z-index:1;
+      transition: opacity .6s ease;
+      animation: ripple 3.4s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes ripple{
+      0%{transform:translateX(-50%) scale(1.0)}
+      50%{transform:translateX(-50%) scale(1.05)}
+      100%{transform:translateX(-50%) scale(1.0)}
     }
 
-    /* Lightning flashes */
+    /* Lightning */
     .lightning{
       position:absolute; inset:0;
-      background: radial-gradient(circle at 60% 30%, rgba(255,255,255,.55), transparent 55%);
+      background: radial-gradient(circle at 60% 30%, rgba(255,255,255,.65), transparent 55%);
       opacity:0;
       pointer-events:none;
-      z-index:6;
+      z-index:7;
       mix-blend-mode: overlay;
     }
-    .lightning.flash{
-      animation: flash 1.4s ease-out 1;
-    }
+    .lightning.flash{ animation: flash 1.4s ease-out 1; }
     @keyframes flash{
       0%{opacity:0}
-      8%{opacity:.65}
+      8%{opacity:.72}
       16%{opacity:.12}
-      22%{opacity:.45}
-      40%{opacity:.05}
+      22%{opacity:.52}
+      40%{opacity:.06}
       100%{opacity:0}
     }
 
-    /* Theme differences for YES/NO */
-    .yes .giant{
-      color: #eaffff;
-      text-shadow:
-        0 0 22px rgba(102,227,255,.42),
-        0 0 90px rgba(102,227,255,.25),
-        0 30px 120px rgba(0,0,0,.70);
-    }
-    .yes .dot{ background: var(--accent); box-shadow:0 0 18px rgba(102,227,255,.6); }
+    /* Modes */
+    .yes .giant{ color:#eaffff; }
+    .yes .dot{ background: var(--accent); box-shadow:0 0 18px rgba(102,227,255,.62); }
+    .yes .puddle{ opacity:.55; }
 
     .no .giant{
-      color: #eafff0;
-      text-shadow:
-        0 0 22px rgba(0,255,178,.40),
-        0 0 90px rgba(0,255,178,.22),
-        0 30px 120px rgba(0,0,0,.70);
+      color:#eafff0;
+      text-shadow: 0 0 20px rgba(0,255,178,.42), 0 0 90px rgba(0,255,178,.22), 0 35px 140px rgba(0,0,0,.72);
     }
     .no .dot{ background: var(--ok); box-shadow:0 0 18px rgba(0,255,178,.55); }
 
-    /* Loading + error */
     .loading .giant{opacity:.45; letter-spacing:.14em;}
-    .error .giant{color:#ffe9f1; text-shadow:0 0 20px rgba(255,42,109,.35), 0 0 90px rgba(255,42,109,.22), 0 30px 120px rgba(0,0,0,.70);}
-    .error .dot{background:var(--danger); box-shadow:0 0 18px rgba(255,42,109,.55);}
-
-    /* Mobile tweaks */
-    @media (max-width:520px){
-      .headline{font-size:34px}
-      .card-inner{padding:20px}
-      .answer{height:min(300px, 44vh)}
+    .error .giant{
+      color:#ffe9f1;
+      text-shadow: 0 0 22px rgba(255,42,109,.40), 0 0 100px rgba(255,42,109,.22), 0 35px 140px rgba(0,0,0,.72);
     }
+    .error .dot{background:var(--danger); box-shadow:0 0 18px rgba(255,42,109,.58);}
+
+    /* Big on small screens */
+    @media (max-width:520px){
+      .headline{font-size:36px}
+      .card-inner{padding:20px}
+      .answer{height:min(320px, 46vh)}
+      .controls{gap:8px}
+    }
+
+    /* Sound-unlocked overlay */
+    .unlock{
+      position:absolute; inset:0;
+      display:grid;
+      place-items:center;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(10px);
+      z-index:50;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .25s ease;
+    }
+    .unlock.on{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .unlockCard{
+      width:min(560px, 92vw);
+      border-radius:26px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 30px 90px rgba(0,0,0,.65);
+      padding:18px;
+      text-align:center;
+    }
+    .unlockCard h3{
+      margin:0 0 6px;
+      font-family:"Bebas Neue", sans-serif;
+      font-size:34px;
+      letter-spacing:.05em;
+    }
+    .unlockCard p{ margin:0 0 12px; opacity:.92; }
+    .unlockCard .btn{ padding:12px 14px; }
   </style>
 </head>
 
 <body>
   <div class="fog"></div>
 
-  <!-- Decorative floating imagery (Unsplash hotlinks; swap if you want) -->
+  <!-- A ridiculous rain photo collage (swap URLs freely) -->
   <div class="gallery" aria-hidden="true">
-    <div class="floaty" style="
-      left:-6vw; top:8vh;
-      background-image:url('https://images.unsplash.com/photo-1503435824048-a799a3a84bf7?auto=format&fit=crop&w=1200&q=60');
-      animation-delay:-3s;"></div>
-
-    <div class="floaty" style="
-      right:-10vw; top:18vh;
-      background-image:url('https://images.unsplash.com/photo-1526676037777-05a232554f77?auto=format&fit=crop&w=1200&q=60');
-      animation-delay:-7s;"></div>
-
-    <div class="floaty" style="
-      left:12vw; bottom:-12vh;
-      width:min(34vw, 520px);
-      background-image:url('https://images.unsplash.com/photo-1501696461415-6bd6660c6742?auto=format&fit=crop&w=1400&q=60');
-      animation-delay:-5s;"></div>
+    <div class="floaty" style="left:-7vw; top:7vh; background-image:url('https://images.unsplash.com/photo-1503435824048-a799a3a84bf7?auto=format&fit=crop&w=1400&q=60'); animation-delay:-3s;"></div>
+    <div class="floaty" style="right:-10vw; top:14vh; background-image:url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=1400&q=60'); animation-delay:-7s;"></div>
+    <div class="floaty" style="left:10vw; bottom:-14vh; width:min(35vw, 560px); background-image:url('https://images.unsplash.com/photo-1501696461415-6bd6660c6742?auto=format&fit=crop&w=1600&q=60'); animation-delay:-5s;"></div>
+    <div class="floaty" style="right:12vw; bottom:-18vh; width:min(26vw, 420px); background-image:url('https://images.unsplash.com/photo-1526676037777-05a232554f77?auto=format&fit=crop&w=1400&q=60'); animation-delay:-9s;"></div>
   </div>
 
-  <!-- Effects -->
+  <!-- Cartoon sticker chaos -->
+  <div class="stickers" aria-hidden="true" id="stickers">
+    <div class="sticker" style="left:4vw; top:10vh;">☔</div>
+    <div class="sticker small" style="left:18vw; top:26vh; animation-delay:-2s;">🌧️</div>
+    <div class="sticker" style="right:6vw; top:12vh; animation-delay:-3.2s;">🦆</div>
+    <div class="sticker small" style="right:18vw; top:30vh; animation-delay:-1.3s;">🐸</div>
+    <div class="sticker" style="left:8vw; bottom:16vh; animation-delay:-4.1s;">🌈</div>
+    <div class="sticker small" style="right:10vw; bottom:18vh; animation-delay:-2.7s;">⚡</div>
+    <div class="sticker small" style="left:40vw; top:6vh; animation-delay:-5.0s;">☁️</div>
+    <div class="sticker small" style="right:40vw; bottom:10vh; animation-delay:-6.0s;">💧</div>
+  </div>
+
   <div class="rain" id="rainLayer" aria-hidden="true"></div>
   <div class="lightning" id="lightning" aria-hidden="true"></div>
 
@@ -402,76 +501,88 @@
       <div class="card-inner">
         <header>
           <div class="title">
-            <div class="eyebrow">The Atmospheric Drama Engine</div>
+            <div class="eyebrow">Meteorology but make it ✨theater✨</div>
             <h1 class="headline">Is it raining outside?</h1>
           </div>
 
           <div class="controls">
             <button class="btn" id="btnRefresh" type="button">Refresh</button>
-            <button class="btn" id="btnSound" type="button">Sound: Off</button>
-            <button class="btn" id="btnVibes" type="button">Extra Vibes</button>
+            <button class="btn primary" id="btnSound" type="button">Sound: Off</button>
+            <button class="btn" id="btnVibes" type="button">Vibes: MAX</button>
           </div>
         </header>
 
         <div class="answer-wrap">
           <div class="answer" id="answerBox">
+            <div class="puddle" id="puddle"></div>
+
             <h2 class="giant" id="giant">…</h2>
 
             <div class="status" id="statusRow">
               <span class="pill"><span class="dot" id="dot"></span><span id="loc">Locating you…</span></span>
-              <span class="pill" id="wxPill">Weather: <strong id="wx">—</strong></span>
-              <span class="pill" id="rainPill">Rain mm/h: <strong id="rainRate">—</strong></span>
+              <span class="pill">Weather: <strong id="wx">—</strong></span>
+              <span class="pill">Rain mm/h: <strong id="rainRate">—</strong></span>
             </div>
 
-            <p class="phrase" id="phrase">
-              Asking the sky politely. (It rarely answers politely.)
-            </p>
+            <div class="meter" aria-hidden="false">
+              <span>Storm Level</span>
+              <div class="bar"><div class="fill" id="stormFill"></div></div>
+              <span id="stormLabel">—</span>
+            </div>
+
+            <p class="phrase" id="phrase">Summoning a prophecy from the nearest cloud…</p>
           </div>
         </div>
 
         <footer>
-          <div class="small" id="meta">
-            Using browser geolocation + Open-Meteo current conditions.
-          </div>
-          <div class="small">
-            Tip: open over HTTPS (or localhost) so geolocation works.
-          </div>
+          <div class="small" id="meta">Geolocation + Open-Meteo current precipitation.</div>
+          <div class="small">Tip: run on HTTPS (or localhost) for location permissions.</div>
         </footer>
       </div>
     </section>
   </main>
 
-  <!-- Rain sound (replace with your own if you want) -->
-  <audio id="rainAudio" loop preload="auto"
-    src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_5f4b7d1d2f.mp3?filename=rain-and-thunder-ambient-10561.mp3">
-  </audio>
+  <!-- “Click to enable audio” overlay (fixes autoplay headaches) -->
+  <div class="unlock on" id="unlock">
+    <div class="unlockCard">
+      <h3>Tap to Summon the Rain</h3>
+      <p>Browsers block spooky ambient audio until you interact. Click once to unlock the storm soundtrack.</p>
+      <button class="btn primary" id="btnUnlock" type="button">UNLOCK SOUND</button>
+    </div>
+  </div>
 
   <script>
-    // ---- Phrases ----
+    // -------------------------
+    // PHRASES (more unhinged)
+    // -------------------------
     const PHRASES_YES = [
-      "YES. The sky is doing cardio on your roof.",
-      "YES. The clouds have chosen chaos.",
-      "YES. It’s giving: dramatic hydration.",
-      "YES. Nature is aggressively misting your existence.",
-      "YES. The atmosphere is in its feelings (and they’re wet).",
-      "YES. The sky has opened the spillway."
+      "YES. The sky is aggressively moisturising your entire zip code.",
+      "YES. Umbrellas rise. Hair plans fall.",
+      "YES. The clouds are doing a full percussion solo.",
+      "YES. It’s raining like the atmosphere has receipts.",
+      "YES. The outside is currently a wet audiobook.",
+      "YES. The heavens said: *splash*."
     ];
     const PHRASES_NO = [
-      "NO. The sky is behaving (for now).",
-      "NO. Dry vibes only. Enjoy the rare peace treaty.",
-      "NO. Not raining. The clouds are just lurking.",
-      "NO. The universe is withholding precipitation… today.",
-      "NO. The sky is currently on silent mode.",
-      "NO. Your hair can remain unbothered."
+      "NO. The sky is behaving (suspiciously).",
+      "NO. Your sneakers may remain un-soaked.",
+      "NO. Not raining. The clouds are just vibing in silence.",
+      "NO. Dry era. Take a victory lap.",
+      "NO. The storm has been postponed without notice.",
+      "NO. The universe is holding its water."
     ];
     const PHRASES_ERR = [
-      "I can’t tell. The weather spirits are gatekeeping your data.",
-      "Denied. Your browser won’t reveal your coordinates to the storm oracle.",
-      "No location, no prophecy. The sky demands permissions.",
-      "The radar goblins are asleep. Try refreshing."
+      "I can’t tell. The weather spirits are gatekeeping your coordinates.",
+      "Denied. No location, no prophecy.",
+      "The storm oracle is offline. Refresh and try again.",
+      "The clouds are being secretive. Permission issue likely."
     ];
 
-    // ---- Elements ----
+    const pick = (arr) => arr[Math.floor(Math.random()*arr.length)];
+
+    // -------------------------
+    // ELEMENTS
+    // -------------------------
     const card = document.getElementById("card");
     const rainLayer = document.getElementById("rainLayer");
     const lightning = document.getElementById("lightning");
@@ -483,72 +594,196 @@
     const btnRefresh = document.getElementById("btnRefresh");
     const btnSound = document.getElementById("btnSound");
     const btnVibes = document.getElementById("btnVibes");
-    const rainAudio = document.getElementById("rainAudio");
+    const unlock = document.getElementById("unlock");
+    const btnUnlock = document.getElementById("btnUnlock");
+    const stormFill = document.getElementById("stormFill");
+    const stormLabel = document.getElementById("stormLabel");
+    const stickers = document.getElementById("stickers");
 
-    // ---- State ----
+    // -------------------------
+    // STATE
+    // -------------------------
     let soundOn = false;
-    let extraVibes = true;
+    let maxVibes = true;
+    let rainingNow = false;
+    let lastRainRate = 0;
 
-    // Build rain drops once
-    function buildRainDrops(count = 140){
+    // -------------------------
+    // SOUND (Web Audio + layered loops)
+    // -------------------------
+    let audioCtx = null;
+    let masterGain = null;
+    let rainGain = null;
+    let roofGain = null;
+    let thunderGain = null;
+
+    let rainEl = null;
+    let roofEl = null;
+    let thunderEl = null;
+
+    function createLoop(url){
+      const a = new Audio(url);
+      a.loop = true;
+      a.crossOrigin = "anonymous";
+      a.preload = "auto";
+      return a;
+    }
+
+    // Pick sources with decent uptime; swap freely
+    const SRC_RAIN = "https://cdn.pixabay.com/download/audio/2022/03/15/audio_8f2c8f0c30.mp3?filename=rain-ambient-110014.mp3";
+    const SRC_ROOF = "https://cdn.pixabay.com/download/audio/2021/08/04/audio_5f4b7d1d2f.mp3?filename=rain-and-thunder-ambient-10561.mp3";
+    const SRC_THUNDER = "https://cdn.pixabay.com/download/audio/2022/03/10/audio_14b8f02a3d.mp3?filename=thunder-110165.mp3";
+
+    function ensureAudioGraph(){
+      if(audioCtx) return;
+
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0.85;
+      masterGain.connect(audioCtx.destination);
+
+      rainGain = audioCtx.createGain();    rainGain.gain.value = 0.0;
+      roofGain = audioCtx.createGain();    roofGain.gain.value = 0.0;
+      thunderGain = audioCtx.createGain(); thunderGain.gain.value = 0.0;
+
+      rainGain.connect(masterGain);
+      roofGain.connect(masterGain);
+      thunderGain.connect(masterGain);
+
+      rainEl = createLoop(SRC_RAIN);
+      roofEl = createLoop(SRC_ROOF);
+      thunderEl = createLoop(SRC_THUNDER);
+
+      // Connect elements to WebAudio
+      const rainNode = audioCtx.createMediaElementSource(rainEl);
+      const roofNode = audioCtx.createMediaElementSource(roofEl);
+      const thunderNode = audioCtx.createMediaElementSource(thunderEl);
+
+      rainNode.connect(rainGain);
+      roofNode.connect(roofGain);
+      thunderNode.connect(thunderGain);
+    }
+
+    async function unlockAudio(){
+      ensureAudioGraph();
+      if(audioCtx.state === "suspended") await audioCtx.resume();
+
+      // Start loops (they can be silent via gain)
+      try{
+        await rainEl.play();
+        await roofEl.play();
+        await thunderEl.play();
+      } catch (e){
+        console.warn("Audio play blocked (still).", e);
+      }
+
+      unlock.classList.remove("on");
+    }
+
+    function setSoundButton(){
+      btnSound.textContent = `Sound: ${soundOn ? "On" : "Off"}`;
+    }
+
+    function setMixForWeather(){
+      if(!audioCtx) return;
+
+      // Smooth gain changes (avoid clicks)
+      const now = audioCtx.currentTime;
+
+      const targetRain = (soundOn && rainingNow) ? 0.55 : 0.0;
+      const targetRoof = (soundOn && rainingNow) ? 0.28 : 0.0;
+
+      // Thunder only sometimes, and more if rain rate higher
+      const intensity = Math.min(1, (lastRainRate || 0) / 3.0); // ~3 mm/h = intense
+      const targetThunderBase = (soundOn && rainingNow && maxVibes) ? (0.05 + 0.18 * intensity) : 0.0;
+
+      rainGain.gain.cancelScheduledValues(now);
+      roofGain.gain.cancelScheduledValues(now);
+      thunderGain.gain.cancelScheduledValues(now);
+
+      rainGain.gain.setTargetAtTime(targetRain, now, 0.12);
+      roofGain.gain.setTargetAtTime(targetRoof, now, 0.12);
+      thunderGain.gain.setTargetAtTime(targetThunderBase, now, 0.18);
+    }
+
+    // Occasional thunder “punch” synced with lightning
+    function thunderPunch(){
+      if(!audioCtx || !soundOn || !rainingNow || !maxVibes) return;
+      const now = audioCtx.currentTime;
+      const bump = 0.35;
+      thunderGain.gain.setTargetAtTime(bump, now, 0.02);
+      thunderGain.gain.setTargetAtTime(0.08, now + 0.6, 0.25);
+      thunderGain.gain.setTargetAtTime(0.05, now + 1.4, 0.35);
+    }
+
+    // -------------------------
+    // VISUAL FX
+    // -------------------------
+    function buildRainDrops(count = 170){
       rainLayer.innerHTML = "";
       const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
       for(let i=0;i<count;i++){
         const d = document.createElement("div");
         d.className = "drop";
         const left = Math.random() * 100;
-        const dur = 0.55 + Math.random() * 0.9;
-        const delay = -Math.random() * 2.5;
-        const height = 12 + Math.random() * 28;
-        const opacity = 0.25 + Math.random() * 0.55;
+        const dur = 0.45 + Math.random() * 0.95;
+        const delay = -Math.random() * 2.8;
+        const height = 10 + Math.random() * 32;
+        const opacity = 0.22 + Math.random() * 0.58;
         d.style.left = left + "vw";
         d.style.animationDuration = dur + "s";
         d.style.animationDelay = delay + "s";
         d.style.height = height + "vh";
         d.style.opacity = opacity;
-        // Slightly wider on big screens
-        d.style.width = (vw > 900 ? (1 + Math.random()*2) : (1 + Math.random()*1.5)) + "px";
+        d.style.width = (vw > 900 ? (1 + Math.random()*2.2) : (1 + Math.random()*1.6)) + "px";
         rainLayer.appendChild(d);
       }
     }
 
-    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
     function setMode(mode){
-      // modes: loading, yes, no, error
       card.classList.remove("loading","yes","no","error");
       card.classList.add(mode);
 
-      if(mode === "yes"){
-        rainLayer.classList.add("on");
-      } else {
-        rainLayer.classList.remove("on");
-      }
+      if(mode === "yes") rainLayer.classList.add("on");
+      else rainLayer.classList.remove("on");
     }
 
     function setPhrase(mode){
       if(mode === "yes") phraseEl.textContent = pick(PHRASES_YES);
       else if(mode === "no") phraseEl.textContent = pick(PHRASES_NO);
       else if(mode === "error") phraseEl.textContent = pick(PHRASES_ERR);
-      else phraseEl.textContent = "Consulting the clouds…";
+      else phraseEl.textContent = "Consulting the cloud council…";
     }
 
-    // Lightning occasionally when raining + extraVibes
+    function setStormMeter(mmPerHr){
+      // 0..6mm/h maps to 0..100%
+      const pct = Math.max(0, Math.min(100, (mmPerHr / 6) * 100));
+      stormFill.style.width = pct.toFixed(0) + "%";
+
+      let label = "Calm";
+      if(mmPerHr > 0 && mmPerHr < 0.5) label = "Misty Mischief";
+      else if(mmPerHr >= 0.5 && mmPerHr < 1.5) label = "Respectable Rain";
+      else if(mmPerHr >= 1.5 && mmPerHr < 3.5) label = "Wet Chaos";
+      else if(mmPerHr >= 3.5) label = "Stormcore";
+      stormLabel.textContent = label;
+    }
+
     function maybeFlash(){
-      if(!extraVibes) return;
-      if(!card.classList.contains("yes")) return;
-      if(Math.random() < 0.18){
+      if(!maxVibes) return;
+      if(!rainingNow) return;
+      if(Math.random() < 0.22){
         lightning.classList.remove("flash");
-        // force reflow
         void lightning.offsetWidth;
         lightning.classList.add("flash");
+        thunderPunch();
       }
     }
-    setInterval(maybeFlash, 2200);
+    setInterval(maybeFlash, 2100);
 
-    // ---- Weather logic ----
-    // Open-Meteo current endpoint (no API key)
-    // https://open-meteo.com/
+    // -------------------------
+    // WEATHER
+    // -------------------------
     async function fetchRainStatus(lat, lon){
       const url =
         "https://api.open-meteo.com/v1/forecast" +
@@ -567,43 +802,22 @@
       const precip = Number(cur.precipitation ?? 0);
       const code = Number(cur.weather_code ?? NaN);
 
-      // Open-Meteo weather codes for rain-ish (common set)
-      // Drizzle: 51,53,55,56,57
-      // Rain: 61,63,65,66,67,80,81,82
-      // Thunderstorm w/ precip: 95,96,99 (may include rain/hail)
       const RAIN_CODES = new Set([51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99]);
 
-      const rainingNow =
-        (rain > 0) || (showers > 0) || (precip > 0) || (RAIN_CODES.has(code));
+      const rate = Math.max(rain, showers, precip);
+      const isRaining = (rate > 0) || (RAIN_CODES.has(code));
 
-      return {
-        rainingNow,
-        rainRate: Math.max(rain, showers, precip),
-        code
-      };
+      return { isRaining, rate, code };
     }
 
     function codeToWords(code){
-      // Minimal mapping (enough for flavor)
       const map = new Map([
-        [0,"Clear"],
-        [1,"Mainly clear"],
-        [2,"Partly cloudy"],
-        [3,"Overcast"],
-        [45,"Fog"],
-        [48,"Depositing rime fog"],
-        [51,"Light drizzle"],
-        [53,"Drizzle"],
-        [55,"Dense drizzle"],
-        [61,"Slight rain"],
-        [63,"Rain"],
-        [65,"Heavy rain"],
-        [80,"Rain showers"],
-        [81,"Heavy showers"],
-        [82,"Violent showers"],
-        [95,"Thunderstorm"],
-        [96,"Thunderstorm + hail"],
-        [99,"Thunderstorm + heavy hail"]
+        [0,"Clear"], [1,"Mainly clear"], [2,"Partly cloudy"], [3,"Overcast"],
+        [45,"Fog"], [48,"Rime fog"],
+        [51,"Light drizzle"], [53,"Drizzle"], [55,"Dense drizzle"],
+        [61,"Slight rain"], [63,"Rain"], [65,"Heavy rain"],
+        [80,"Rain showers"], [81,"Heavy showers"], [82,"Violent showers"],
+        [95,"Thunderstorm"], [96,"Thunderstorm + hail"], [99,"Thunderstorm + heavy hail"]
       ]);
       return map.get(code) ?? `Code ${code}`;
     }
@@ -626,6 +840,7 @@
       wxEl.textContent = "—";
       rainRateEl.textContent = "—";
       locEl.textContent = "Locating you…";
+      setStormMeter(0);
 
       try{
         const coords = await getLocation();
@@ -634,70 +849,101 @@
         locEl.textContent = `You: ${lat}, ${lon}`;
 
         const wx = await fetchRainStatus(lat, lon);
-        const wxWords = codeToWords(wx.code);
-        wxEl.textContent = wxWords;
-        rainRateEl.textContent = (isFinite(wx.rainRate) ? wx.rainRate.toFixed(2) : "0.00");
+        wxEl.textContent = codeToWords(wx.code);
+        rainRateEl.textContent = (isFinite(wx.rate) ? wx.rate.toFixed(2) : "0.00");
 
-        if(wx.rainingNow){
+        rainingNow = wx.isRaining;
+        lastRainRate = wx.rate || 0;
+        setStormMeter(lastRainRate);
+
+        if(rainingNow){
           setMode("yes");
           setPhrase("yes");
           giant.textContent = "YES";
-          if(soundOn) startSound(); else stopSound();
         } else {
           setMode("no");
           setPhrase("no");
           giant.textContent = "NO";
-          stopSound();
         }
+
+        setMixForWeather();
       } catch(e){
         console.warn(e);
+        rainingNow = false;
+        lastRainRate = 0;
         setMode("error");
         setPhrase("error");
         giant.textContent = "???";
         locEl.textContent = "Location unavailable (permission denied or not HTTPS).";
         wxEl.textContent = "—";
         rainRateEl.textContent = "—";
-        stopSound();
+        setMixForWeather();
       }
     }
 
-    // ---- Sound controls ----
-    async function startSound(){
-      try{
-        rainAudio.volume = 0.65;
-        await rainAudio.play();
-      } catch (e){
-        // Autoplay restrictions: user must interact first
-        console.warn("Audio play blocked until user interacts.", e);
-      }
-    }
-    function stopSound(){
-      rainAudio.pause();
-      rainAudio.currentTime = 0;
-    }
-
-    btnSound.addEventListener("click", async () => {
-      soundOn = !soundOn;
-      btnSound.textContent = `Sound: ${soundOn ? "On" : "Off"}`;
-      if(soundOn && card.classList.contains("yes")) await startSound();
-      if(!soundOn) stopSound();
-    });
-
-    btnVibes.addEventListener("click", () => {
-      extraVibes = !extraVibes;
-      btnVibes.textContent = extraVibes ? "Extra Vibes" : "Vibes: Minimal";
-      // If minimal vibes, kill lightning + tone down rain layer slightly
-      lightning.classList.remove("flash");
-      rainLayer.style.opacity = extraVibes ? "" : ".35";
-    });
-
+    // -------------------------
+    // CONTROLS
+    // -------------------------
     btnRefresh.addEventListener("click", run);
 
-    // Rebuild rain drops on resize
-    window.addEventListener("resize", () => buildRainDrops(window.innerWidth < 520 ? 110 : 150));
+    btnVibes.addEventListener("click", () => {
+      maxVibes = !maxVibes;
+      btnVibes.textContent = maxVibes ? "Vibes: MAX" : "Vibes: chill";
+      stickers.style.opacity = maxVibes ? ".95" : ".35";
+      rainLayer.style.opacity = maxVibes ? "" : ".35";
+      setMixForWeather();
+    });
 
-    // Init
-    buildRainDrops(window.innerWidth < 520 ? 110 : 150);
+    btnSound.addEventListener("click", async () => {
+      // If audio not unlocked yet, show overlay and have them unlock first
+      if(!audioCtx){
+        unlock.classList.add("on");
+      } else if(audioCtx.state === "suspended"){
+        unlock.classList.add("on");
+      }
+
+      soundOn = !soundOn;
+      setSoundButton();
+      setMixForWeather();
+    });
+
+    // Unlock overlay button (guaranteed user gesture)
+    btnUnlock.addEventListener("click", async () => {
+      await unlockAudio();
+      // Turn sound on immediately when unlocked
+      soundOn = true;
+      setSoundButton();
+      setMixForWeather();
+    });
+
+    // Also unlock by clicking anywhere on the overlay
+    unlock.addEventListener("click", async (e) => {
+      if(e.target === unlock){
+        await unlockAudio();
+        soundOn = true;
+        setSoundButton();
+        setMixForWeather();
+      }
+    });
+
+    // If user presses any key, unlock too
+    window.addEventListener("keydown", async () => {
+      if(unlock.classList.contains("on")){
+        await unlockAudio();
+        soundOn = true;
+        setSoundButton();
+        setMixForWeather();
+      }
+    }, { once: true });
+
+    // Resize rain drops
+    window.addEventListener("resize", () => buildRainDrops(window.innerWidth < 520 ? 130 : 180));
+
+    // -------------------------
+    // INIT
+    // -------------------------
+    setSoundButton();
+    buildRainDrops(window.innerWidth < 520 ? 130 : 180);
     run();
   </script>
 </body>
